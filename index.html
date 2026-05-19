@@ -1,33 +1,476 @@
-<!doctype html>
-<html class="no-js" lang="">
-
+<!DOCTYPE html>
+<html lang="it">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title></title>
-  <link rel="stylesheet" href="css/style.css">
-  <meta name="description" content="">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MAXWELL BRUNO AMPOMAH</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  <meta property="og:title" content="">
-  <meta property="og:type" content="">
-  <meta property="og:url" content="">
-  <meta property="og:image" content="">
-  <meta property="og:image:alt" content="">
+    :root {
+      --black: #0a0a0a;
+      --white: #ffffff;
+      --gold: #c8a96e;
+      --red: #c0392b;
+      --nav-height: 54px;
+    }
 
-  <link rel="icon" href="/favicon.ico" sizes="any">
-  <link rel="icon" href="/icon.svg" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="icon.png">
+    html, body {
+      font-family: 'Montserrat', sans-serif;
+      background: var(--black);
+      color: var(--white);
+      overflow-x: hidden;
+    }
 
-  <link rel="manifest" href="site.webmanifest">
-  <meta name="theme-color" content="#fafafa">
+    /* ── TOP BAR ── */
+    .topbar {
+      background: var(--black);
+      height: var(--nav-height);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 100;
+    }
+
+    .logo-text {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      font-size: 16px;
+      letter-spacing: 5px;
+      color: var(--white);
+      text-transform: uppercase;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      width: 100%;
+      height: calc(100vh - var(--nav-height));
+      min-height: 520px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to right, rgba(0,0,0,0.62) 0%, rgba(0,0,0,0.18) 55%, rgba(0,0,0,0.05) 100%),
+        url('Br1sfondo.jpg') center/cover no-repeat;
+      animation: zoomIn 10s ease forwards;
+    }
+
+    @keyframes zoomIn {
+      from { transform: scale(1.05); }
+      to   { transform: scale(1); }
+    }
+
+    .hero-line {
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 4px;
+      background: var(--red);
+      opacity: 0;
+      animation: fadeIn 1.2s 0.4s forwards;
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
+    .hero-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: var(--white);
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s;
+      z-index: 10;
+    }
+    .hero-arrow:hover { background: rgba(255,255,255,0.18); border-color: var(--gold); }
+    .hero-arrow.left  { left: 28px; }
+    .hero-arrow.right { right: 28px; }
+    .hero-arrow svg { width: 14px; height: 14px; stroke: var(--white); stroke-width: 1.5; fill: none; }
+
+    .hero-content {
+      position: relative;
+      z-index: 5;
+      padding: 0 80px;
+      max-width: 520px;
+    }
+
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(38px, 5vw, 62px);
+      font-weight: 300;
+      line-height: 1.1;
+      letter-spacing: 0.5px;
+      color: var(--white);
+      opacity: 0;
+      transform: translateY(20px);
+      animation: slideUp 0.9s 0.5s cubic-bezier(.16,1,.3,1) forwards;
+    }
+
+    .hero-subtitle {
+      font-size: 12px;
+      font-weight: 300;
+      letter-spacing: 1px;
+      color: rgba(255,255,255,0.82);
+      margin-top: 16px;
+      opacity: 0;
+      transform: translateY(16px);
+      animation: slideUp 0.9s 0.75s cubic-bezier(.16,1,.3,1) forwards;
+    }
+
+    .hero-cta {
+      display: inline-block;
+      margin-top: 36px;
+      padding: 12px 32px;
+      border: 1px solid var(--white);
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--white);
+      text-decoration: none;
+      cursor: pointer;
+      transition: background 0.25s, color 0.25s, border-color 0.25s;
+      opacity: 0;
+      transform: translateY(14px);
+      animation: slideUp 0.9s 1s cubic-bezier(.16,1,.3,1) forwards;
+    }
+    .hero-cta:hover {
+      background: var(--white);
+      color: var(--black);
+    }
+
+    @keyframes slideUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-dots {
+      position: absolute;
+      bottom: 24px;
+      right: 36px;
+      display: flex;
+      gap: 8px;
+      z-index: 10;
+    }
+    .dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.35);
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    /* CORRETTO: il dot attivo è il primo, non l'ultimo */
+    .dot.active { background: var(--white); }
+
+    .hero-counter {
+      position: absolute;
+      bottom: 24px;
+      left: 80px;
+      font-size: 10px;
+      letter-spacing: 2px;
+      color: rgba(255,255,255,0.5);
+      z-index: 10;
+    }
+
+    /* ── VIDEO SECTION ── */
+    .video-section {
+      width: 100%;
+      min-height: 100vh;
+      background: #050505;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+      position: relative;
+      padding: 60px 20px;
+    }
+
+    .video-section::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--gold), transparent);
+    }
+
+    .video-label, .photo-label {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(22px, 3vw, 36px);
+      font-weight: 300;
+      letter-spacing: 4px;
+      color: rgba(255,255,255,0.85);
+      text-transform: uppercase;
+    }
+
+    .video-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      max-width: 1400px;
+      gap: 40px;
+    }
+
+    /* TESTI LATERALI PIÙ GRANDI */
+    .video-side-text {
+      flex: 1;
+      max-width: 300px;
+      font-size: 16px;
+      font-weight: 300;
+      line-height: 1.8;
+      color: rgba(255, 255, 255, 0.82);
+      letter-spacing: 0.5px;
+    }
+
+    .video-side-text.left-text {
+      text-align: right;
+    }
+
+    .video-side-text.right-text {
+      text-align: left;
+    }
+
+    .video-side-text h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 26px;
+      color: var(--gold);
+      margin-bottom: 12px;
+      letter-spacing: 1px;
+    }
+
+    .video-wrapper {
+      width: min(860px, 60vw);
+      aspect-ratio: 16/9;
+      position: relative;
+      box-shadow: 0 0 80px rgba(0,0,0,0.8), 0 0 0 1px rgba(200,169,110,0.2);
+    }
+
+    .video-wrapper video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .video-wrapper::before,
+    .video-wrapper::after {
+      content: '';
+      position: absolute;
+      width: 24px; height: 24px;
+      border-color: var(--gold);
+      border-style: solid;
+      z-index: 2;
+    }
+    .video-wrapper::before {
+      top: -6px; left: -6px;
+      border-width: 2px 0 0 2px;
+    }
+    .video-wrapper::after {
+      bottom: -6px; right: -6px;
+      border-width: 0 2px 2px 0;
+    }
+
+    /* ── SEZIONE FOTO ── */
+    .photo-section {
+      width: 100%;
+      min-height: 100vh;
+      background: var(--black);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 40px;
+      position: relative;
+      padding: 60px 20px;
+    }
+
+    .photo-section::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(200,169,110,0.3), transparent);
+    }
+
+    .photo-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      max-width: 1400px;
+      gap: 40px;
+    }
+
+    /* TESTI LATERALI PIÙ GRANDI */
+    .photo-side-text {
+      flex: 1;
+      max-width: 300px;
+      font-size: 16px;
+      font-weight: 300;
+      line-height: 1.8;
+      color: rgba(255, 255, 255, 0.82);
+      letter-spacing: 0.5px;
+    }
+
+    .photo-side-text.left-text { text-align: right; }
+    .photo-side-text.right-text { text-align: left; }
+
+    .photo-side-text h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 26px;
+      color: var(--gold);
+      margin-bottom: 12px;
+      letter-spacing: 1px;
+    }
+
+    .photos-wrapper {
+      display: flex;
+      gap: 20px;
+      width: min(860px, 60vw);
+      justify-content: center;
+      position: relative;
+    }
+
+    .photo-item {
+      flex: 1;
+      aspect-ratio: 3/4;
+      position: relative;
+      box-shadow: 0 0 30px rgba(0,0,0,0.5), 0 0 0 1px rgba(200,169,110,0.2);
+      overflow: hidden;
+    }
+
+    .photo-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+
+    .photo-item:hover img {
+      transform: scale(1.05);
+    }
+
+    /* ── MOBILE ── */
+    @media (max-width: 992px) {
+      .video-container, .photo-container {
+        flex-direction: column;
+        gap: 30px;
+      }
+      .video-wrapper, .photos-wrapper {
+        width: min(860px, 90vw);
+      }
+      .video-side-text, .photo-side-text {
+        max-width: 90vw;
+        text-align: center !important;
+      }
+    }
+  </style>
 </head>
-
 <body>
 
-  <!-- Add your site or application content here -->
-  <p>Hello world! This is HTML5 Boilerplate.</p>
-  <script src="js/app.js"></script>
+<header class="topbar">
+  <span class="logo-text">Maxwell Bruno Ampomah</span>
+</header>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-line"></div>
+
+  <div class="hero-arrow left">
+    <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+  </div>
+
+  <div class="hero-content">
+    <!-- CORRETTO: "un po'" con apostrofo, non "pò" con accento -->
+    <h1 class="hero-title">Studente dell&rsquo;Ettore Majorana.</h1>
+    <p class="hero-subtitle">Parliamo un po' di me</p>
+    <a class="hero-cta">Scopri Ora</a>
+  </div>
+
+  <div class="hero-arrow right">
+    <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+  </div>
+
+  <div class="hero-counter">01 / 04</div>
+
+  <div class="hero-dots">
+    <!-- CORRETTO: il dot attivo è il primo -->
+    <div class="dot active"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+  </div>
+</section>
+
+<section class="video-section">
+  <div class="video-label">Il mio video</div>
+
+  <div class="video-container">
+
+    <div class="video-side-text left-text">
+      <!-- CORRETTO: "più" con accento, "fotomodello" una sola parola -->
+      <h3>Un ragazzo con più passioni</h3>
+      <p>Non sono solo uno studente, ma anche un fotomodello.</p>
+    </div>
+
+    <div class="video-wrapper">
+      <video controls autoplay muted loop>
+        <source src="videomodello.mp4" type="video/mp4">
+      </video>
+    </div>
+
+    <div class="video-side-text right-text">
+      <h3>Esperienza</h3>
+      <!-- CORRETTO: aggiunta "e" tra "amicizie" e "nuove esperienze", aggiunto punto finale -->
+      <p>Fare il fotomodello è fantastico: fai nuove amicizie e nuove esperienze.</p>
+    </div>
+
+  </div>
+</section>
+
+<section class="photo-section">
+  <div class="photo-label">I miei scatti</div>
+
+  <div class="photo-container">
+
+    <div class="photo-side-text left-text">
+      <h3>Sempre in palestra</h3>
+      <!-- CORRETTO: aggiunta virgola dopo "paradiso" -->
+      <p>La palestra è il mio paradiso, mi permette di sfogarmi.</p>
+    </div>
+
+    <div class="photos-wrapper">
+      <div class="photo-item">
+        <img src="Br1gym.jpeg" alt="Maxwell scatto 1">
+      </div>
+      <div class="photo-item">
+        <img src="br1chtarra.jpeg" alt="Maxwell scatto 2">
+      </div>
+    </div>
+
+    <div class="photo-side-text right-text">
+      <h3>Amante della musica</h3>
+      <!-- CORRETTO: "imparare" (non "imparate"), "fermerà" con accento -->
+      <p>Da poco mi sono messo a imparare a suonare la chitarra da solo. È molto difficile, ma non mi fermerà.</p>
+    </div>
+
+  </div>
+</section>
 
 </body>
-
 </html>
