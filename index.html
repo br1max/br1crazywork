@@ -16,6 +16,11 @@
       --nav-height: 54px;
     }
 
+    /* Aggiunto 'scroll-behavior: smooth' per lo scorrimento fluido */
+    html {
+      scroll-behavior: smooth;
+    }
+
     html, body {
       font-family: 'Montserrat', sans-serif;
       background: var(--black);
@@ -60,6 +65,8 @@
       background:
         linear-gradient(to right, rgba(0,0,0,0.62) 0%, rgba(0,0,0,0.18) 55%, rgba(0,0,0,0.05) 100%),
         url('Br1sfondo.jpg') center/cover no-repeat;
+      /* Aggiunta una transizione dolce per quando cambia l'immagine con il JS */
+      transition: background 0.5s ease-in-out;
       animation: zoomIn 10s ease forwards;
     }
 
@@ -172,7 +179,6 @@
       cursor: pointer;
       transition: background 0.2s;
     }
-    /* CORRETTO: il dot attivo è il primo, non l'ultimo */
     .dot.active { background: var(--white); }
 
     .hero-counter {
@@ -225,7 +231,6 @@
       gap: 40px;
     }
 
-    /* TESTI LATERALI PIÙ GRANDI */
     .video-side-text {
       flex: 1;
       max-width: 300px;
@@ -315,7 +320,6 @@
       gap: 40px;
     }
 
-    /* TESTI LATERALI PIÙ GRANDI */
     .photo-side-text {
       flex: 1;
       max-width: 300px;
@@ -388,28 +392,27 @@
 </header>
 
 <section class="hero">
-  <div class="hero-bg"></div>
+  <div class="hero-bg" id="hero-bg"></div>
   <div class="hero-line"></div>
 
-  <div class="hero-arrow left">
+  <div class="hero-arrow left" id="arrow-left">
     <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
   </div>
 
   <div class="hero-content">
-    <!-- CORRETTO: "un po'" con apostrofo, non "pò" con accento -->
     <h1 class="hero-title">Studente dell&rsquo;Ettore Majorana.</h1>
     <p class="hero-subtitle">Parliamo un po' di me</p>
-    <a class="hero-cta">Scopri Ora</a>
+    <!-- Aggiunto l'href per collegarlo all'ID della sezione video -->
+    <a href="#il-mio-video" class="hero-cta">Scopri Ora</a>
   </div>
 
-  <div class="hero-arrow right">
+  <div class="hero-arrow right" id="arrow-right">
     <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
   </div>
 
-  <div class="hero-counter">01 / 04</div>
+  <div class="hero-counter" id="slide-counter">01 / 04</div>
 
-  <div class="hero-dots">
-    <!-- CORRETTO: il dot attivo è il primo -->
+  <div class="hero-dots" id="dots-container">
     <div class="dot active"></div>
     <div class="dot"></div>
     <div class="dot"></div>
@@ -417,13 +420,13 @@
   </div>
 </section>
 
-<section class="video-section">
+<!-- Aggiunto l'ID per far funzionare lo scroll quando clicchi 'Scopri Ora' -->
+<section class="video-section" id="il-mio-video">
   <div class="video-label">Il mio video</div>
 
   <div class="video-container">
 
     <div class="video-side-text left-text">
-      <!-- CORRETTO: "più" con accento, "fotomodello" una sola parola -->
       <h3>Un ragazzo con più passioni</h3>
       <p>Non sono solo uno studente, ma anche un fotomodello.</p>
     </div>
@@ -436,7 +439,6 @@
 
     <div class="video-side-text right-text">
       <h3>Esperienza</h3>
-      <!-- CORRETTO: aggiunta "e" tra "amicizie" e "nuove esperienze", aggiunto punto finale -->
       <p>Fare il fotomodello è fantastico: fai nuove amicizie e nuove esperienze.</p>
     </div>
 
@@ -450,7 +452,6 @@
 
     <div class="photo-side-text left-text">
       <h3>Sempre in palestra</h3>
-      <!-- CORRETTO: aggiunta virgola dopo "paradiso" -->
       <p>La palestra è il mio paradiso, mi permette di sfogarmi.</p>
     </div>
 
@@ -465,12 +466,61 @@
 
     <div class="photo-side-text right-text">
       <h3>Amante della musica</h3>
-      <!-- CORRETTO: "imparare" (non "imparate"), "fermerà" con accento -->
       <p>Da poco mi sono messo a imparare a suonare la chitarra da solo. È molto difficile, ma non mi fermerà.</p>
     </div>
 
   </div>
 </section>
+
+<!-- SCRIPT PER FAR FUNZIONARE LO SLIDER DELLE FOTO IN ALTO -->
+<script>
+  // Inserisci qui i nomi dei 4 file immagine che vuoi usare nello slider
+  const images = [
+    'Br1sfondo.jpg',
+    'Br2sfondo.jpg', // Sostituisci con il nome della tua seconda foto
+    'Br3sfondo.jpg', // Sostituisci con il nome della tua terza foto
+    'Br4sfondo.jpg'  // Sostituisci con il nome della tua quarta foto
+  ];
+  
+  let currentIndex = 0;
+  const heroBg = document.getElementById('hero-bg');
+  const counter = document.getElementById('slide-counter');
+  const dots = document.querySelectorAll('.dot');
+  const arrowLeft = document.getElementById('arrow-left');
+  const arrowRight = document.getElementById('arrow-right');
+
+  function updateSlider(index) {
+    // 1. Aggiorna l'immagine di sfondo mantenendo l'effetto gradiente scuro
+    heroBg.style.background = `linear-gradient(to right, rgba(0,0,0,0.62) 0%, rgba(0,0,0,0.18) 55%, rgba(0,0,0,0.05) 100%), url('${images[index]}') center/cover no-repeat`;
+    
+    // 2. Aggiorna il testo del contatore (es. 01 / 04)
+    counter.textContent = `0${index + 1} / 0${images.length}`;
+    
+    // 3. Aggiorna il pallino attivo in basso a destra
+    dots.forEach(dot => dot.classList.remove('active'));
+    dots[index].classList.add('active');
+  }
+
+  // Evento click sulla freccia destra
+  arrowRight.addEventListener('click', () => {
+    currentIndex = (currentIndex + 1) % images.length;
+    updateSlider(currentIndex);
+  });
+
+  // Evento click sulla freccia sinistra
+  arrowLeft.addEventListener('click', () => {
+    currentIndex = (currentIndex - 1 + images.length) % images.length;
+    updateSlider(currentIndex);
+  });
+
+  // Evento click sui singoli pallini in basso
+  dots.forEach((dot, index) => {
+    dot.addEventListener('click', () => {
+      currentIndex = index;
+      updateSlider(currentIndex);
+    });
+  });
+</script>
 
 </body>
 </html>
