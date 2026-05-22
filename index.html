@@ -16,7 +16,6 @@
       --nav-height: 54px;
     }
 
-    /* Aggiunto 'scroll-behavior: smooth' per lo scorrimento fluido */
     html {
       scroll-behavior: smooth;
     }
@@ -28,7 +27,6 @@
       overflow-x: hidden;
     }
 
-    /* ── TOP BAR ── */
     .topbar {
       background: var(--black);
       height: var(--nav-height);
@@ -48,7 +46,6 @@
       text-transform: uppercase;
     }
 
-    /* ── HERO ── */
     .hero {
       position: relative;
       width: 100%;
@@ -65,7 +62,6 @@
       background:
         linear-gradient(to right, rgba(0,0,0,0.62) 0%, rgba(0,0,0,0.18) 55%, rgba(0,0,0,0.05) 100%),
         url('Br1sfondo.jpg') center/cover no-repeat;
-      /* Aggiunta una transizione dolce per quando cambia l'immagine con il JS */
       transition: background 0.5s ease-in-out;
       animation: zoomIn 10s ease forwards;
     }
@@ -191,7 +187,6 @@
       z-index: 10;
     }
 
-    /* ── VIDEO SECTION ── */
     .video-section {
       width: 100%;
       min-height: 100vh;
@@ -289,7 +284,6 @@
       border-width: 0 2px 2px 0;
     }
 
-    /* ── SEZIONE FOTO ── */
     .photo-section {
       width: 100%;
       min-height: 100vh;
@@ -369,7 +363,6 @@
       transform: scale(1.05);
     }
 
-    /* ── MOBILE ── */
     @media (max-width: 992px) {
       .video-container, .photo-container {
         flex-direction: column;
@@ -402,7 +395,6 @@
   <div class="hero-content">
     <h1 class="hero-title">Studente dell&rsquo;Ettore Majorana.</h1>
     <p class="hero-subtitle">Parliamo un po' di me</p>
-    <!-- Aggiunto l'href per collegarlo all'ID della sezione video -->
     <a href="#il-mio-video" class="hero-cta">Scopri Ora</a>
   </div>
 
@@ -420,7 +412,6 @@
   </div>
 </section>
 
-<!-- Aggiunto l'ID per far funzionare lo scroll quando clicchi 'Scopri Ora' -->
 <section class="video-section" id="il-mio-video">
   <div class="video-label">Il mio video</div>
 
@@ -472,16 +463,14 @@
   </div>
 </section>
 
-<!-- SCRIPT PER FAR FUNZIONARE LO SLIDER DELLE FOTO IN ALTO -->
 <script>
-  // Inserisci qui i nomi dei 4 file immagine che vuoi usare nello slider
   const images = [
     'Br1sfondo.jpg',
-    'Br2sfondo.jpg', // Sostituisci con il nome della tua seconda foto
-    'Br3sfondo.jpg', // Sostituisci con il nome della tua terza foto
-    'Br4sfondo.jpg'  // Sostituisci con il nome della tua quarta foto
+    'Br2sfondo.jpg',
+    'Br3sfondo.jpg',
+    'Br4sfondo.jpg'
   ];
-  
+
   let currentIndex = 0;
   const heroBg = document.getElementById('hero-bg');
   const counter = document.getElementById('slide-counter');
@@ -490,30 +479,22 @@
   const arrowRight = document.getElementById('arrow-right');
 
   function updateSlider(index) {
-    // 1. Aggiorna l'immagine di sfondo mantenendo l'effetto gradiente scuro
     heroBg.style.background = `linear-gradient(to right, rgba(0,0,0,0.62) 0%, rgba(0,0,0,0.18) 55%, rgba(0,0,0,0.05) 100%), url('${images[index]}') center/cover no-repeat`;
-    
-    // 2. Aggiorna il testo del contatore (es. 01 / 04)
     counter.textContent = `0${index + 1} / 0${images.length}`;
-    
-    // 3. Aggiorna il pallino attivo in basso a destra
     dots.forEach(dot => dot.classList.remove('active'));
     dots[index].classList.add('active');
   }
 
-  // Evento click sulla freccia destra
   arrowRight.addEventListener('click', () => {
     currentIndex = (currentIndex + 1) % images.length;
     updateSlider(currentIndex);
   });
 
-  // Evento click sulla freccia sinistra
   arrowLeft.addEventListener('click', () => {
     currentIndex = (currentIndex - 1 + images.length) % images.length;
     updateSlider(currentIndex);
   });
 
-  // Evento click sui singoli pallini in basso
   dots.forEach((dot, index) => {
     dot.addEventListener('click', () => {
       currentIndex = index;
